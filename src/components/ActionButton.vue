@@ -1,0 +1,57 @@
+<template>
+  <button :class="mode">
+    <slot></slot>
+    {{ title }}
+  </button>
+</template>
+<script>
+export default {
+  props: ["title", "mode"],
+};
+</script>
+<style scoped>
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.create {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+  color: #fff;
+  background-color: var(--clr-orange);
+  border-radius: 4px;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.5s ease-out;
+}
+.create:hover {
+  background-color: var(--clr-orange-hover);
+}
+
+.save {
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+  color: #fff;
+  background-color: var(--clr-orange);
+  border-radius: 4px;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.5s ease-out;
+}
+.save:hover {
+  background-color: var(--clr-orange-hover);
+}
+</style>
