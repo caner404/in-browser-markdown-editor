@@ -1,17 +1,27 @@
 <template>
-  <div class="preview" :class="{ 'preview-active': isPreview }">
+  <div
+    class="preview"
+    :class="{ 'preview-active': isPreview || switchToPreview }"
+  >
     <div class="preview-header">
       <h2 class="preview-heading">Preview</h2>
-      <button class="preview-icon" @click="isPreview = !isPreview">
+      <button
+        v-if="switchToPreview"
+        class="preview-icon"
+        @click="$emit('toggleEditor', true)"
+      >
+        <img src="../assets/icon-hide-preview.svg" alt="Test2" />
+      </button>
+      <button v-else class="preview-icon" @click="isPreview = !isPreview">
         <img
           v-if="!isPreview"
           src="../assets/icon-show-preview.svg"
           alt="Icon Preview Button Show"
         />
         <img
-          v-else="isPreview"
+          v-else-if="isPreview"
           src="../assets/icon-hide-preview.svg"
-          alt="Icon Preview Button HIde"
+          alt="Icon Preview Button Hide"
         />
       </button>
     </div>
@@ -25,7 +35,7 @@
 </template>
 <script>
 export default {
-  props: ["outputMethod"],
+  props: ["outputMethod", "switchToPreview"],
   data() {
     return {
       isPreview: false,

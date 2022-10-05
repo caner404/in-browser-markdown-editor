@@ -47,4 +47,10 @@
 .document__input:focus {
   border-bottom: 2px solid white;
 }
+
+@media (max-width: 38em) {
+  .document__name {
+    display: none;
+  }
+}
 </style>

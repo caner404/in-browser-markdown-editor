@@ -1,7 +1,16 @@
 <template>
   <main :class="{ 'margin-left': showSidebar }">
-    <div class="editor">
-      <h2 class="editor-header">Markdown</h2>
+    <div class="editor" :class="{ 'editor-active': toggleView }">
+      <div class="editor-header">
+        <h2 class="editor-heading">Markdown</h2>
+        <button class="editor-preview-toggle" @click="toggleView = !toggleView">
+          <img
+            src="../../assets/icon-show-preview.svg"
+            alt="Icon Preview Button Show"
+          />
+        </button>
+      </div>
+
       <textarea
         :value="inputText"
         @input="update"
@@ -11,7 +20,11 @@
       </textarea>
     </div>
 
-    <Preview :outputMethod="output" />
+    <Preview
+      :outputMethod="output"
+      :switchToPreview="!toggleView"
+      @toggle-editor="(isEditor) => (toggleView = isEditor)"
+    />
   </main>
 </template>
 <script>
@@ -27,6 +40,8 @@ export default {
   data() {
     return {
       inputText: "",
+      toggleView: true,
+      selectedView: "preview",
     };
   },
   computed: {
@@ -49,14 +64,12 @@ main {
   height: 95vh;
   width: 100%;
 }
-.editor-header {
+.editor-heading {
   font-weight: 500;
   font-size: 1.4rem;
   line-height: 1.6rem;
   letter-spacing: 0.2rem;
-  color: var(--clr--500);
-  background-color: var(--clr--200);
-  padding: 2rem 1rem;
+
   text-transform: uppercase;
 }
 
@@ -66,9 +79,15 @@ main {
   height: inherit;
   flex: 1;
   overflow: hidden;
-}
-.editor {
   border-right: 1px solid #e4e4e4;
+}
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--clr--500);
+  background-color: var(--clr--200);
+  padding: 2rem 1rem;
 }
 .margin-left {
   margin-left: 25rem;
@@ -87,9 +106,27 @@ main {
   color: var(--clr--700);
 }
 
-@media screen and (max-width: 60em) {
+.editor-preview-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  height: 1.5rem;
+}
+
+@media (max-width: 60em) {
   .editor-content {
     padding: 1.5rem;
+  }
+}
+@media (max-width: 38em) {
+  .editor {
+    flex-basis: 0%;
+  }
+  .editor-active {
+    flex-basis: 100%;
+  }
+  .editor-preview-toggle {
+    display: inline-block;
   }
 }
 </style>

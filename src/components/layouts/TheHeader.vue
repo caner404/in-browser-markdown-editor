@@ -85,13 +85,19 @@ hr {
   fill: var(--clr-orange);
 }
 
-@media screen and (max-width: 60em) {
+@media (max-width: 60em) {
   header {
     gap: 1.5rem;
   }
   .markdown_logo,
   hr {
     display: none;
+  }
+}
+@media (max-width: 38em) {
+  .action__container {
+    gap: 2rem;
+    margin-right: 1.5rem;
   }
 }
 </style>

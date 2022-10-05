@@ -1,7 +1,7 @@
 <template>
   <button :class="mode">
     <slot></slot>
-    {{ title }}
+    <span>{{ title }}</span>
   </button>
 </template>
 <script>
@@ -53,5 +53,11 @@ button {
 }
 .save:hover {
   background-color: var(--clr-orange-hover);
+}
+
+@media (max-width: 38em) {
+  span {
+    display: none;
+  }
 }
 </style>

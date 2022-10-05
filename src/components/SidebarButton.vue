@@ -34,4 +34,10 @@ button {
 button:hover {
   background-color: var(--clr-orange);
 }
+@media (max-width: 38em) {
+  button {
+    width: 5.6rem;
+    height: 5.6rem;
+  }
+}
 </style>
