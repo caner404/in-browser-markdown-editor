@@ -1,12 +1,36 @@
 <template>
-  <div class="preview">
-    <h2 class="preview-header">Preview</h2>
-    <div class="preview-content" v-html="outputMethod"></div>
+  <div class="preview" :class="{ 'preview-active': isPreview }">
+    <div class="preview-header">
+      <h2 class="preview-heading">Preview</h2>
+      <button class="preview-icon" @click="isPreview = !isPreview">
+        <img
+          v-if="!isPreview"
+          src="../assets/icon-show-preview.svg"
+          alt="Icon Preview Button Show"
+        />
+        <img
+          v-else="isPreview"
+          src="../assets/icon-hide-preview.svg"
+          alt="Icon Preview Button HIde"
+        />
+      </button>
+    </div>
+
+    <div
+      class="preview-content"
+      v-html="outputMethod"
+      :class="{ 'preview-content-active': isPreview }"
+    ></div>
   </div>
 </template>
 <script>
 export default {
   props: ["outputMethod"],
+  data() {
+    return {
+      isPreview: false,
+    };
+  },
 };
 </script>
 <style>
@@ -17,16 +41,34 @@ export default {
   flex: 1;
   overflow-y: scroll;
 }
-
 .preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--clr--500);
+  background-color: var(--clr--200);
+  padding: 2rem 1.5rem;
+}
+.preview-heading {
   font-weight: 500;
   font-size: 1.4rem;
   line-height: 1.6rem;
   letter-spacing: 0.2rem;
-  color: var(--clr--500);
-  background-color: var(--clr--200);
-  padding: 2rem 1rem;
   text-transform: uppercase;
+}
+
+.preview-icon {
+  background: transparent;
+  border: none;
+  height: 1.5rem;
+}
+
+.preview-active {
+  flex-basis: 100%;
+}
+.preview-content-active {
+  max-width: 50%;
+  align-self: center;
 }
 
 .preview-content {
@@ -151,7 +193,11 @@ ul {
 
 @media screen and (max-width: 60em) {
   .preview-content {
-    padding: 1.5rem;
+    padding: 3rem;
+  }
+  .preview-content-active {
+    max-width: 100%;
+    align-self: center;
   }
 }
 </style>

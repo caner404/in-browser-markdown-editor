@@ -1,9 +1,26 @@
 <template>
-  <button>
-    <img src="../assets/icon-menu.svg" alt="Menu Button" />
+  <button @click="isButtonClicked = !isButtonClicked">
+    <img
+      v-if="!isButtonClicked"
+      src="../assets/icon-menu.svg"
+      alt="Menu Button"
+    />
+    <img
+      v-else="isButtonClicked"
+      src="../assets/icon-close.svg"
+      alt="Menu Button Clicked"
+    />
   </button>
 </template>
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      isButtonClicked: false,
+    };
+  },
+};
+</script>
 <style scoped>
 button {
   border: none;
@@ -11,8 +28,9 @@ button {
   height: 7.2rem;
   background-color: var(--clr--700);
   cursor: pointer;
-  transition: all 0.5s ease-out;
+  transition: all 0.5s ease-in-out;
 }
+
 button:hover {
   background-color: var(--clr-orange);
 }

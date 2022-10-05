@@ -1,5 +1,5 @@
 <template>
-  <main :class="{ 'padding-left': showSidebar }">
+  <main :class="{ 'margin-left': showSidebar }">
     <div class="editor">
       <h2 class="editor-header">Markdown</h2>
       <textarea
@@ -65,12 +65,13 @@ main {
   flex-direction: column;
   height: inherit;
   flex: 1;
+  overflow: hidden;
 }
 .editor {
   border-right: 1px solid #e4e4e4;
 }
-.padding-left {
-  padding-left: 25rem;
+.margin-left {
+  margin-left: 25rem;
 }
 
 .editor-content {
