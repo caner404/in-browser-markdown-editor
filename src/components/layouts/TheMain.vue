@@ -12,7 +12,7 @@
       </div>
 
       <textarea
-        :value="inputText"
+        :value="store.currentMarkdown.markdownContent"
         @input="update"
         class="editor-content"
         spellcheck="false"
@@ -31,27 +31,29 @@
 import { marked } from "marked";
 import { debounce } from "lodash-es";
 import Preview from "../Preview.vue";
+import { store } from "@/store.js";
 
 export default {
   components: {
     Preview,
   },
   props: ["showSidebar"],
+
   data() {
     return {
-      inputText: "",
       toggleView: true,
       selectedView: "preview",
+      store,
     };
   },
   computed: {
     output() {
-      return marked(this.inputText);
+      return marked(store.currentMarkdown.markdownContent);
     },
   },
   methods: {
     update: debounce(function (e) {
-      this.inputText = e.target.value;
+      store.currentMarkdown.markdownContent = e.target.value;
     }, 100),
   },
 };

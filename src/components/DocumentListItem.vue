@@ -12,14 +12,14 @@
       />
     </svg>
     <div class="document-item__info">
-      <p class="document-item__date">{{ date }}</p>
-      <p class="document-item__name">{{ name }}</p>
+      <p class="document-item__date">{{ markdownDate }}</p>
+      <p class="document-item__name">{{ markdownTitle }}</p>
     </div>
   </li>
 </template>
 <script>
 export default {
-  props: ["id", "date", "name"],
+  props: ["id", "markdownTitle", "markdownDate"],
 };
 </script>
 <style scoped>

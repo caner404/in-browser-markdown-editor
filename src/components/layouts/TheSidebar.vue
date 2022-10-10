@@ -6,7 +6,11 @@
       alt="Markdown logo"
     />
     <h2>MY DOCUMENTS</h2>
-    <action-button mode="create" title="+ New Document" />
+    <action-button
+      @click="createMarkdown"
+      mode="create"
+      title="+ New Document"
+    />
     <DocumentList />
   </aside>
 </template>
@@ -15,36 +19,10 @@ import DocumentList from "../DocumentList.vue";
 import ActionButton from "../ActionButton.vue";
 
 export default {
-  props: ["showSidebar"],
+  props: ["showSidebar", "createMarkdown"],
   components: {
     DocumentList,
     ActionButton,
-  },
-  data() {
-    return {
-      storedList: [
-        {
-          id: 1,
-          date: "5 May 2022",
-          name: "untitled-document2.md",
-        },
-        {
-          id: 2,
-          date: "25 May 2022",
-          name: "utest-1231231.md",
-        },
-        {
-          id: 3,
-          date: "15 May 2022",
-          name: "suck-ma-balls-hehe.md",
-        },
-      ],
-    };
-  },
-  provide() {
-    return {
-      documents: this.storedList,
-    };
   },
 };
 </script>

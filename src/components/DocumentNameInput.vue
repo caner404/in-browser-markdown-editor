@@ -3,11 +3,24 @@
     <img class="document_icon" src="../assets/icon-document.svg" />
     <div class="document__content">
       <p class="document__name">Document Name</p>
-      <input class="document__input" type="text" />
+      <input
+        class="document__input"
+        type="text"
+        v-model="store.currentMarkdown.markdownTitle"
+      />
     </div>
   </div>
 </template>
-<script></script>
+<script>
+import { store } from "@/store.js";
+export default {
+  data() {
+    return {
+      store,
+    };
+  },
+};
+</script>
 <style scoped>
 .document {
   display: flex;

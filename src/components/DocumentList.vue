@@ -1,20 +1,32 @@
 <template>
   <ul>
     <document-list-item
-      v-for="doc in documents"
-      :id="doc.id"
-      :date="doc.date"
-      :name="doc.name"
+      v-for="markdown in store.getMarkdownList()"
+      :id="markdown.id"
+      :markdownTitle="markdown.markdownTitle"
+      :markdownDate="markdown.markdownDate"
+      @click="switchCurrentMarkdown(markdown.id)"
     ></document-list-item>
   </ul>
 </template>
 <script>
 import DocumentListItem from "./DocumentListItem.vue";
+import { store } from "@/store.js";
 export default {
+  data() {
+    return {
+      store,
+    };
+  },
   components: {
     DocumentListItem,
   },
-  inject: ["documents"],
+  methods: {
+    switchCurrentMarkdown(markdownId) {
+      const nextMarkdownItem = store.getMarkdownItem(markdownId);
+      store.setCurrentMarkdown(nextMarkdownItem);
+    },
+  },
 };
 </script>
 <style scoped>
