@@ -1,6 +1,10 @@
 <template>
   <main :class="{ 'sidebar-active': showSidebar }">
-    <Editor :toggleView="toggleView" :update="update" />
+    <Editor
+      :toggleView="toggleView"
+      :updateMethod="update"
+      @toggle-editor="(isEditor) => (toggleView = isEditor)"
+    />
     <Preview
       :outputMethod="output"
       :switchToPreview="!toggleView"

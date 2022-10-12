@@ -2,7 +2,10 @@
   <div class="editor" :class="{ 'editor-active': toggleView }">
     <div class="editor-header">
       <h2 class="editor-heading">Markdown</h2>
-      <button class="editor-preview-toggle" @click="toggleView = !toggleView">
+      <button
+        class="editor-preview-toggle"
+        @click="$emit('toggleEditor', false)"
+      >
         <img
           src="@/assets/icon-show-preview.svg"
           alt="Icon Preview Button Show"
