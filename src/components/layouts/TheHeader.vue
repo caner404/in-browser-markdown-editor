@@ -1,11 +1,13 @@
 <template>
-  <header :class="{ 'move-to-right': showSidebar }">
+  <header :class="{ 'sidebar-active': showSidebar }">
     <SidebarButton @click="toggle" />
+
     <img
       class="markdown_logo"
       src="../../assets/logo.svg"
       alt="Markdown logo"
     />
+
     <hr />
     <DocumentNameInput />
     <div class="action__container">
@@ -56,6 +58,7 @@ export default {
 </script>
 <style scoped>
 header {
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -63,6 +66,11 @@ header {
   height: 5vh;
   width: 100%;
   background-color: var(--clr--800);
+  transition: all 0.4s ease;
+}
+
+header.sidebar-active {
+  transform: translateX(25rem);
 }
 
 hr {
@@ -70,11 +78,6 @@ hr {
   height: 4rem;
   background-color: var(--clr--600);
 }
-
-.move-to-right {
-  margin-left: 25rem;
-}
-
 .action__container {
   display: flex;
   justify-content: center;

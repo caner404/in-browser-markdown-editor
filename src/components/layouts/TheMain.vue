@@ -1,5 +1,5 @@
 <template>
-  <main :class="{ 'margin-left': showSidebar }">
+  <main :class="{ 'sidebar-active': showSidebar }">
     <div class="editor" :class="{ 'editor-active': toggleView }">
       <div class="editor-header">
         <h2 class="editor-heading">Markdown</h2>
@@ -65,6 +65,10 @@ main {
   align-items: flex-start;
   height: 95vh;
   width: 100%;
+  transition: transform 0.4s ease;
+}
+main.sidebar-active {
+  transform: translateX(25rem);
 }
 .editor-heading {
   font-weight: 500;

@@ -56,7 +56,7 @@ button {
 }
 
 @media (max-width: 38em) {
-  span {
+  .save > span {
     display: none;
   }
 }

@@ -62,8 +62,14 @@ export default {
 }
 
 @media (max-width: 38em) {
+  .document {
+    gap: 1.5rem;
+  }
   .document__name {
     display: none;
+  }
+  .document__input {
+    width: 100%;
   }
 }
 </style>

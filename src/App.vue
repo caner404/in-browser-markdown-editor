@@ -7,7 +7,6 @@
   ></the-header>
   <the-sidebar
     :createMarkdown="createMarkdown"
-    v-if="showSidebar"
     :showSidebar="showSidebar"
   ></the-sidebar>
   <the-main :showSidebar="showSidebar"></the-main>

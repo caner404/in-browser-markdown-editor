@@ -28,7 +28,6 @@ button {
   height: 7.2rem;
   background-color: var(--clr--700);
   cursor: pointer;
-  transition: all 0.5s ease-in-out;
 }
 
 button:hover {

@@ -1,17 +1,21 @@
 <template>
-  <aside :class="{ expand: showSidebar }">
-    <img
-      class="markdown_logo_sidebar"
-      src="../../assets/logo.svg"
-      alt="Markdown logo"
-    />
-    <h2>MY DOCUMENTS</h2>
-    <action-button
-      @click="createMarkdown"
-      mode="create"
-      title="+ New Document"
-    />
-    <DocumentList />
+  <aside>
+    <transition name="slide">
+      <div class="sidebar" v-if="showSidebar">
+        <img
+          class="markdown_logo_sidebar"
+          src="../../assets/logo.svg"
+          alt="Markdown logo"
+        />
+        <h2>My Documents</h2>
+        <action-button
+          @click="createMarkdown"
+          mode="create"
+          title="+ New Document"
+        />
+        <DocumentList />
+      </div>
+    </transition>
   </aside>
 </template>
 <script>
@@ -27,16 +31,24 @@ export default {
 };
 </script>
 <style scoped>
-aside {
-  position: absolute;
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.4s ease;
+}
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(-100%);
+}
+.sidebar {
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
-  width: 0rem;
+  z-index: 999;
+  width: 25rem;
   height: 100%;
-  background-color: var(--clr--1000);
   overflow-x: hidden;
 
+  background-color: var(--clr--1000);
   display: flex;
   flex-direction: column;
   align-items: baseline;
@@ -44,6 +56,7 @@ aside {
   justify-content: flex-start;
   padding: 2.5rem;
 }
+
 .markdown_logo_sidebar {
   display: none;
 }
@@ -53,9 +66,7 @@ h2 {
   line-height: 1.6rem;
   letter-spacing: 0.2rem;
   color: var(--clr--500);
-}
-.expand {
-  width: 25rem;
+  text-transform: uppercase;
 }
 
 @media (max-width: 60em) {
