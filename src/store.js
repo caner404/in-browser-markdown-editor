@@ -8,6 +8,7 @@ export const store = reactive({
     markdownDate: Date,
   },
   markdownList: [],
+  isDarkMode: false,
 
   init() {
     if (window.localStorage.length >= 1) {
@@ -18,6 +19,10 @@ export const store = reactive({
       }
       this.currentMarkdown = this.markdownList[0];
     }
+  },
+  showDarkMode() {
+    console.log(`Here is showDarkMode Value: ${this.isDarkMode}`);
+    return this.isDarkMode;
   },
   getCurrentMarkdown() {
     return this.currentMarkdown;
@@ -49,6 +54,10 @@ export const store = reactive({
     9: "October",
     10: "November",
     11: "December",
+  },
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+    console.log(`I got clicked: toggleValue is ${this.isDarkMode}`);
   },
 });
 store.init();

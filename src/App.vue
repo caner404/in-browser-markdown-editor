@@ -1,15 +1,17 @@
 <template>
-  <the-header
-    :toggle="toggleSidebar"
-    :showSidebar="showSidebar"
-    :updateMarkdown="updateMarkdown"
-    :deleteMarkdown="deleteMarkdown"
-  ></the-header>
-  <the-sidebar
-    :createMarkdown="createMarkdown"
-    :showSidebar="showSidebar"
-  ></the-sidebar>
-  <the-main :showSidebar="showSidebar"></the-main>
+  <div id="container" :class="{ 'theme-active': store.showDarkMode() }">
+    <the-header
+      :toggle="toggleSidebar"
+      :showSidebar="showSidebar"
+      :updateMarkdown="updateMarkdown"
+      :deleteMarkdown="deleteMarkdown"
+    ></the-header>
+    <the-sidebar
+      :createMarkdown="createMarkdown"
+      :showSidebar="showSidebar"
+    ></the-sidebar>
+    <the-main :showSidebar="showSidebar"></the-main>
+  </div>
 </template>
 <script>
 import TheHeader from "./components/layouts/TheHeader.vue";
@@ -87,11 +89,37 @@ export default {
 };
 </script>
 <style>
-#app {
+#container {
   position: relative;
   font-family: "Roboto", sans-serif;
   font-size: 1.6rem;
   width: 100vw;
   height: 100vh;
+  transition: 1s;
+
+  --clr--100: #ffffff;
+  --clr--200: #f5f5f5;
+  --clr--300: #e4e4e4;
+  --clr--400: #c1c4cb;
+  --clr--500: #7c8187;
+  --clr--600: #5a6069;
+  --clr--700: #35393f;
+  --clr--800: #2b2d31;
+  --clr--900: #1d1f22;
+  --clr--1000: #151619;
+  --clr-orange: #e46643;
+  --clr-orange-hover: #f39765;
+
+  --clr-document-name-white: #fff;
+  --clr--sidebarbutton: #35393f;
+  --clr-preview-headings: #35393f;
+}
+
+#container.theme-active {
+  --clr--100: #151619;
+  --clr--200: #1d1f22;
+  --clr--500: #c1c4cb;
+  --clr--700: #c1c4cb;
+  --clr-preview-headings: #fff;
 }
 </style>

@@ -14,19 +14,22 @@
           title="+ New Document"
         />
         <DocumentList />
+        <DarkModeToggle />
       </div>
     </transition>
   </aside>
 </template>
 <script>
-import DocumentList from "../DocumentList.vue";
-import ActionButton from "../ActionButton.vue";
+import DocumentList from "@/components/DocumentList.vue";
+import ActionButton from "@/components/ActionButton.vue";
+import DarkModeToggle from "@/components/DarkModeToggle.vue";
 
 export default {
   props: ["showSidebar", "createMarkdown"],
   components: {
     DocumentList,
     ActionButton,
+    DarkModeToggle,
   },
 };
 </script>
@@ -45,7 +48,7 @@ export default {
   left: 0;
   z-index: 999;
   width: 25rem;
-  height: 100%;
+  height: 100vh;
   overflow-x: hidden;
 
   background-color: var(--clr--1000);

@@ -45,7 +45,7 @@ export default {
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 1.8rem;
-  color: var(--clr--100);
+  color: var(--clr-document-name-white);
 }
 .document-item__name:hover {
   cursor: pointer;

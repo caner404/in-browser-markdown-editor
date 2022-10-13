@@ -47,8 +47,8 @@ export default {
   outline: none;
   border: transparent;
   caret-color: var(--clr-orange);
+  color: var(--clr-document-name-white);
   background-color: transparent;
-  color: var(--clr--100);
   font-family: "Roboto";
   font-style: normal;
   font-size: 1.5rem;

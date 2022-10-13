@@ -15,7 +15,7 @@
 
     <textarea
       :value="store.currentMarkdown.markdownContent"
-      @input="update"
+      @input="updateMethod"
       class="editor-content"
       spellcheck="false"
     >
@@ -25,7 +25,7 @@
 <script>
 import { store } from "@/store.js";
 export default {
-  props: ["toggleView", "update"],
+  props: ["toggleView", "updateMethod"],
   data() {
     return {
       store,
@@ -74,6 +74,8 @@ export default {
   font-size: 1.4rem;
   line-height: 2.4rem;
   color: var(--clr--700);
+  /* not on .editor cause textarea fills whole area*/
+  background-color: var(--clr--100);
 }
 
 .editor-preview-toggle {

@@ -50,6 +50,7 @@ export default {
   height: inherit;
   flex: 1;
   overflow-y: scroll;
+  background-color: var(--clr--100);
 }
 .preview-header {
   display: flex;
@@ -85,6 +86,7 @@ export default {
   height: 100%;
   font-family: "Roboto Slab";
   color: var(--clr--700);
+
   padding: 1rem;
 }
 
@@ -99,7 +101,7 @@ export default {
 .preview-content h5,
 .preview-content h6 {
   font-weight: 700;
-  color: var(--clr--700);
+  color: var(--clr-preview-headings);
 }
 .preview-content h1 {
   font-size: 3.2rem;

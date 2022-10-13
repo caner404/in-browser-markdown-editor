@@ -26,7 +26,7 @@ button {
   border: none;
   width: 7.2rem;
   height: 7.2rem;
-  background-color: var(--clr--700);
+  background-color: var(--clr--sidebarbutton);
   cursor: pointer;
 }
 
