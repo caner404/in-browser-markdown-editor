@@ -48,7 +48,7 @@ export default {
   left: 0;
   z-index: 999;
   width: 25rem;
-  height: 100vh;
+  height: 100%;
   overflow-x: hidden;
 
   background-color: var(--clr--1000);
