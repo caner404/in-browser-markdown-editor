@@ -63,7 +63,7 @@ header {
   justify-content: flex-start;
   align-items: center;
   gap: 3rem;
-  height: 5vh;
+  height: 7vh;
   width: 100%;
   background-color: var(--clr--800);
   transition: all 0.4s ease;
@@ -104,9 +104,6 @@ hr {
   }
 }
 @media (max-width: 38em) {
-  header {
-    height: 7vh;
-  }
   .action__container {
     gap: 2rem;
     margin-right: 1.5rem;
