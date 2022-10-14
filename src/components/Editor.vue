@@ -94,6 +94,9 @@ export default {
   .editor {
     flex-basis: 0%;
   }
+  .editor-header {
+    padding: 1.25rem 1rem;
+  }
   .editor-active {
     flex-basis: 100%;
   }

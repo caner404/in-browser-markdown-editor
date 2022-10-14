@@ -212,4 +212,9 @@ ul {
     align-self: center;
   }
 }
+@media (max-width: 38em) {
+  .preview-header {
+    padding: 1.25rem 1rem;
+  }
+}
 </style>

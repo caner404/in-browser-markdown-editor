@@ -104,6 +104,9 @@ hr {
   }
 }
 @media (max-width: 38em) {
+  header {
+    height: 7vh;
+  }
   .action__container {
     gap: 2rem;
     margin-right: 1.5rem;

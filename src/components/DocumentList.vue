@@ -37,4 +37,10 @@ ul {
   align-items: flex-start;
   gap: 3rem;
 }
+@media (max-width: 38em) {
+  ul {
+    padding-right: 4rem;
+    overflow: scroll;
+  }
+}
 </style>

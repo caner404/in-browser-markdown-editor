@@ -59,5 +59,8 @@ button {
   .save > span {
     display: none;
   }
+  .save {
+    padding: 1rem;
+  }
 }
 </style>
