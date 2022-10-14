@@ -25,7 +25,7 @@ export default {
 button {
   border: none;
   width: 7.2rem;
-  height: 7.2rem;
+  height: 100%;
   background-color: var(--clr--sidebarbutton);
   cursor: pointer;
 }
@@ -33,10 +33,14 @@ button {
 button:hover {
   background-color: var(--clr-orange);
 }
-@media (max-width: 38em) {
+@media (max-width: 56em) {
   button {
-    width: 5.6rem;
-    height: 5.6rem;
+    width: 6.2rem;
+  }
+}
+@media (max-width: 18em) {
+  button {
+    width: 4rem;
   }
 }
 </style>

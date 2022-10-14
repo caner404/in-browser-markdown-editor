@@ -63,7 +63,7 @@ header {
   justify-content: flex-start;
   align-items: center;
   gap: 3rem;
-  height: 7vh;
+  height: 5vh;
   width: 100%;
   background-color: var(--clr--800);
   transition: all 0.4s ease;
@@ -94,9 +94,15 @@ hr {
   fill: var(--clr-orange);
 }
 
+@media (max-width: 80em) {
+  header {
+    height: 9vh;
+  }
+}
 @media (max-width: 60em) {
   header {
     gap: 1.5rem;
+    height: 6vh;
   }
   .markdown_logo,
   hr {
@@ -107,6 +113,9 @@ hr {
   .action__container {
     gap: 2rem;
     margin-right: 1.5rem;
+  }
+  header {
+    height: 7vh;
   }
 }
 </style>
