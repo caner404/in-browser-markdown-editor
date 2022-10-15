@@ -4,19 +4,25 @@
       :toggle="toggleSidebar"
       :showSidebar="showSidebar"
       :updateMarkdown="updateMarkdown"
-      :deleteMarkdown="deleteMarkdown"
+      :toggleModalDeleteDialog="toggleModalDeleteDialog"
     ></the-header>
     <the-sidebar
       :createMarkdown="createMarkdown"
       :showSidebar="showSidebar"
     ></the-sidebar>
     <the-main :showSidebar="showSidebar"></the-main>
+    <delete-modal
+      v-if="isDeleteModalOpen"
+      :removeMarkdown="deleteMarkdown"
+      :toggleModalDeleteDialog="toggleModalDeleteDialog"
+    ></delete-modal>
   </div>
 </template>
 <script>
-import TheHeader from "./components/layouts/TheHeader.vue";
-import TheMain from "./components/layouts/TheMain.vue";
-import TheSidebar from "./components/layouts/TheSidebar.vue";
+import TheHeader from "@/components/layouts/TheHeader.vue";
+import TheMain from "@/components/layouts/TheMain.vue";
+import TheSidebar from "@/components/layouts/TheSidebar.vue";
+import DeleteModal from "@/components/DeleteModal.vue";
 import { store } from "@/store.js";
 
 export default {
@@ -24,11 +30,18 @@ export default {
     TheHeader,
     TheMain,
     TheSidebar,
+    DeleteModal,
   },
   data() {
     return {
       showSidebar: false,
+      isDeleteModalOpen: false,
       store,
+    };
+  },
+  provide() {
+    return {
+      removeMarkdown: this.deleteMarkdown,
     };
   },
   methods: {
@@ -78,12 +91,20 @@ export default {
         .getMarkdownList()
         .findIndex((markdown) => markdown.id === store.currentMarkdown.id);
       this.store.getMarkdownList().splice(removeIndex, 1);
-      store.setCurrentMarkdown({
-        id: "",
-        markdownTitle: "",
-        markdownContent: "",
-        markdownDate: Date,
-      });
+      if (this.store.getMarkdownList().length >= 0) {
+        this.store.setCurrentMarkdown(this.store.getMarkdownList()[0]);
+      } else {
+        this.store.setCurrentMarkdown({
+          id: "",
+          markdownTitle: "",
+          markdownContent: "",
+          markdownDate: Date,
+        });
+      }
+      this.toggleModalDeleteDialog();
+    },
+    toggleModalDeleteDialog() {
+      this.isDeleteModalOpen = !this.isDeleteModalOpen;
     },
   },
 };
@@ -113,6 +134,9 @@ export default {
   --clr-document-name-white: #fff;
   --clr--sidebarbutton: #35393f;
   --clr-preview-headings: #35393f;
+  --clr-modal-heading: #35393f;
+  --clr-modal-background: #fff;
+  --clr-modal-overlay: #151619;
 }
 
 #container.theme-active {
@@ -121,5 +145,8 @@ export default {
   --clr--500: #c1c4cb;
   --clr--700: #c1c4cb;
   --clr-preview-headings: #fff;
+  --clr-modal-heading: #fff;
+  --clr-modal-background: #151619;
+  --clr-modal-overlay: #7c8187;
 }
 </style>

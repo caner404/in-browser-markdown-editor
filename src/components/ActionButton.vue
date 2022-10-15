@@ -37,7 +37,8 @@ button {
   background-color: var(--clr-orange-hover);
 }
 
-.save {
+.save,
+.confirm {
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 1.8rem;
@@ -51,7 +52,8 @@ button {
   gap: 1rem;
   transition: all 0.5s ease-out;
 }
-.save:hover {
+.save:hover,
+.confirm:hover {
   background-color: var(--clr-orange-hover);
 }
 

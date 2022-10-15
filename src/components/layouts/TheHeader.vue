@@ -11,7 +11,7 @@
     <hr />
     <DocumentNameInput />
     <div class="action__container">
-      <action-button @click="deleteMarkdown">
+      <action-button @click="toggleModalDeleteDialog">
         <svg
           class="delete__icon"
           width="18"
@@ -42,13 +42,7 @@ import DocumentNameInput from "../DocumentNameInput.vue";
 import ActionButton from "../ActionButton.vue";
 
 export default {
-  props: [
-    "toggle",
-    "showSidebar",
-    "updateMarkdown",
-    "deleteMarkdown",
-    "deleteMarkdown",
-  ],
+  props: ["toggle", "showSidebar", "updateMarkdown", "toggleModalDeleteDialog"],
   components: {
     SidebarButton,
     DocumentNameInput,
