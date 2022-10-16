@@ -203,6 +203,11 @@ ul {
   color: var(--clr--700);
 }
 
+.preview-content img {
+  max-width: 100%;
+  height: auto;
+}
+
 @media screen and (max-width: 60em) {
   .preview-content {
     padding: 3rem;

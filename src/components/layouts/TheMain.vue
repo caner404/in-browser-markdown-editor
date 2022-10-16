@@ -40,7 +40,6 @@ export default {
   methods: {
     update: debounce(function (e) {
       store.currentMarkdown.markdownContent = e.target.value;
-      console.log(`Value : ${store.currentMarkdown.markdownContent}`);
     }, 100),
   },
 };
