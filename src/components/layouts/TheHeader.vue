@@ -11,7 +11,7 @@
     <hr />
     <DocumentNameInput />
     <div class="action__container">
-      <action-button @click="toggleModalDeleteDialog">
+      <action-button @click="toggleModalDeleteDialog" mode="delete">
         <svg
           class="delete__icon"
           width="18"
@@ -81,9 +81,6 @@ hr {
   margin-right: 3rem;
 }
 
-.delete__icon:hover {
-  cursor: pointer;
-}
 .delete__icon:hover path {
   fill: var(--clr-orange);
 }

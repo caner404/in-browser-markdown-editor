@@ -13,10 +13,12 @@
       </button>
     </div>
 
+    <label for="editor-content">Editor</label>
     <textarea
       :value="store.currentMarkdown.markdownContent"
       @input="updateMethod"
       class="editor-content"
+      id="editor-content"
       spellcheck="false"
     >
     </textarea>
@@ -61,6 +63,9 @@ export default {
 }
 .margin-left {
   margin-left: 25rem;
+}
+label {
+  display: none;
 }
 
 .editor-content {
