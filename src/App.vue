@@ -91,7 +91,7 @@ export default {
         .getMarkdownList()
         .findIndex((markdown) => markdown.id === store.currentMarkdown.id);
       this.store.getMarkdownList().splice(removeIndex, 1);
-      if (this.store.getMarkdownList().length >= 0) {
+      if (this.store.getMarkdownList().length > 0) {
         this.store.setCurrentMarkdown(this.store.getMarkdownList()[0]);
       } else {
         this.store.setCurrentMarkdown({

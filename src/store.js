@@ -11,17 +11,25 @@ export const store = reactive({
   isDarkMode: false,
 
   init() {
-    if (window.localStorage.length >= 1) {
+    if (window.localStorage.length > 0) {
       for (let i = 0; i < window.localStorage.length; i++) {
         let key = window.localStorage.key(i);
         const localStorageItem = JSON.parse(window.localStorage.getItem(key));
         this.markdownList.push(localStorageItem);
       }
-      this.currentMarkdown = this.markdownList[0];
+    } else {
+      //create welcome.md on first use
+      const welcomeMarkdown = {
+        id: new Date().toISOString(),
+        markdownTitle: "welcome.md",
+        markdownDate: this.getDateFormat(),
+        markdownContent: this.dontIndent(),
+      };
+      this.markdownList.push(welcomeMarkdown);
     }
+    this.currentMarkdown = this.markdownList[0];
   },
   showDarkMode() {
-    console.log(`Here is showDarkMode Value: ${this.isDarkMode}`);
     return this.isDarkMode;
   },
   getCurrentMarkdown() {
@@ -57,7 +65,45 @@ export const store = reactive({
   },
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
-    console.log(`I got clicked: toggleValue is ${this.isDarkMode}`);
+  },
+  dontIndent() {
+    let markdownContentString = `# Welcome to Markdown
+
+    Markdown is a lightweight markup language that you can use to add formatting elements to plaintext text documents.
+    
+    ## How to use this?
+    
+    1. Write markdown in the markdown editor window
+    2. See the rendered markdown in the preview window
+    
+    ### Features
+    
+    - Create headings, paragraphs, links, blockquotes, inline-code, code blocks, and lists
+    - Name and save the document to access again later
+    - Choose between Light or Dark mode depending on your preference
+    
+    > This is an example of a blockquote. If you would like to learn more about markdown syntax, you can visit this [markdown cheatsheet](https://www.markdownguide.org/cheat-sheet/).
+    
+    #### Headings
+    
+    To create a heading, add the hash sign (#) before the heading. The number of number signs you use should correspond to the heading level. You'll see in this guide that we've used all six heading levels (not necessarily in the correct way you should use headings!) to illustrate how they should look.
+    
+    ##### Lists
+    
+    You can see examples of ordered and unordered lists above.
+    
+    ###### Code Blocks
+
+    This markdown editor allows for inline-code snippets, like this: \`<p>I'm inline</p>\`. It also allows for larger code blocks like this:
+    
+    \`\`\`
+    <main>
+      <h1>This is a larger code block</h1>
+    </main>
+    \`\`\``;
+
+    return markdownContentString.replace(/(\n)[^\S\r\n]+/g, "$1");
+    //return markdownContentString;
   },
 });
 store.init();
