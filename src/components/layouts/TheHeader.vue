@@ -11,7 +11,11 @@
     <hr />
     <DocumentNameInput />
     <div class="action__container">
-      <action-button @click="toggleModalDeleteDialog" mode="delete">
+      <action-button
+        @click="toggleModalDeleteDialog"
+        mode="delete"
+        aria-label="Delete Markdown"
+      >
         <svg
           class="delete__icon"
           width="18"
