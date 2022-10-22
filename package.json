@@ -3,17 +3,22 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "deploy": "sh deploy.sh"
   },
   "dependencies": {
+    "happy-dom": "^7.6.0",
     "lodash-es": "^4.17.21",
     "marked": "^4.1.0",
     "vue": "^3.2.38"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.3",
-    "vite": "^3.0.9"
+    "@vue/test-utils": "^2.1.0",
+    "vite": "^3.0.9",
+    "vitest": "^0.24.3"
   }
 }

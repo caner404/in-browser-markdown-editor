@@ -1,19 +1,28 @@
 <template>
-  <div class="modal">
-    <h3 class="modal-heading">Delete this document?</h3>
-    <p class="modal-description">
-      Are you sure you want to delete the '{{
-        this.store.currentMarkdown.markdownTitle
-      }}'' document and its contents? This action cannot be reversed
-    </p>
-    <action-button
-      @click="removeMarkdown"
-      mode="confirm"
-      title="Confirm & Delete"
-    >
-    </action-button>
+  <div class="modal-container" data-test="modal-container">
+    <div class="modal" data-test="modal">
+      <h3 class="modal-heading" data-test="modal-heading">
+        Delete this document?
+      </h3>
+      <p class="modal-description" data-test="modal-description">
+        Are you sure you want to delete the '{{
+          this.store.currentMarkdown.markdownTitle
+        }}'' document and its contents? This action cannot be reversed
+      </p>
+      <action-button
+        @click="removeMarkdown"
+        mode="confirm"
+        title="Confirm & Delete"
+        data-test="modal-button"
+      >
+      </action-button>
+    </div>
+    <div
+      class="overlay"
+      @click="toggleModalDeleteDialog"
+      data-test="modal-overlay"
+    ></div>
   </div>
-  <div class="overlay" @click="toggleModalDeleteDialog()"></div>
 </template>
 <script>
 import ActionButton from "./ActionButton.vue";
@@ -31,6 +40,13 @@ export default {
 };
 </script>
 <style scoped>
+.modal-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
 .modal {
   position: absolute;
   top: 50%;

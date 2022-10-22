@@ -7,6 +7,9 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   base: "/in-browser-markdown-editor/",
   plugins: [vue()],
+  test: {
+    environment: "happy-dom",
+  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),

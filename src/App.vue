@@ -12,7 +12,7 @@
     ></the-sidebar>
     <the-main :showSidebar="showSidebar"></the-main>
     <delete-modal
-      v-if="isDeleteModalOpen"
+      v-show="isDeleteModalOpen"
       :removeMarkdown="deleteMarkdown"
       :toggleModalDeleteDialog="toggleModalDeleteDialog"
     ></delete-modal>
