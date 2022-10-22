@@ -55,42 +55,26 @@ export default {
         markdownContent: "",
         markdownDate: "",
       };
-      store.setCurrentMarkdown(newMarkdown);
+      this.store.setCurrentMarkdown(newMarkdown);
     },
-    updateMarkdown() {
+    updateMarkdown(markdownId) {
       const currentMarkdown = this.store.getCurrentMarkdown();
       const localStorageItem = JSON.parse(
-        window.localStorage.getItem(currentMarkdown.id)
+        window.localStorage.getItem(markdownId)
       );
       if (localStorageItem != null) {
-        localStorageItem.markdownTitle = currentMarkdown.markdownTitle;
-        localStorageItem.markdownContent = currentMarkdown.markdownContent;
-        localStorageItem.markdownDate = store.getDateFormat();
-        window.localStorage.setItem(
-          localStorageItem.id,
-          JSON.stringify(localStorageItem)
-        );
-        //remove current markdown in list
-        const removeIndex = this.store
-          .getMarkdownList()
-          .findIndex((markdown) => markdown.id === store.currentMarkdown.id);
-        this.store.getMarkdownList().splice(removeIndex, 1);
+        this.store.updateLocalStorageItem(currentMarkdown, localStorageItem);
+        this.store.removeMarkdownItem(currentMarkdown.id);
+        this.store.getMarkdownList().unshift(currentMarkdown);
       } else {
-        currentMarkdown.markdownDate = store.getDateFormat();
-        currentMarkdown.id = new Date().toISOString();
-        window.localStorage.setItem(
-          currentMarkdown.id,
-          JSON.stringify(currentMarkdown)
-        );
+        this.store.addLocalStorageItem(currentMarkdown);
+        this.store.getMarkdownList().unshift(currentMarkdown);
       }
-      this.store.getMarkdownList().unshift(currentMarkdown);
     },
     deleteMarkdown() {
-      window.localStorage.removeItem(store.currentMarkdown.id);
-      const removeIndex = this.store
-        .getMarkdownList()
-        .findIndex((markdown) => markdown.id === store.currentMarkdown.id);
-      this.store.getMarkdownList().splice(removeIndex, 1);
+      const currentMarkdown = this.store.getCurrentMarkdown();
+      window.localStorage.removeItem(currentMarkdown.id);
+      this.store.removeMarkdownItem(currentMarkdown.id);
       if (this.store.getMarkdownList().length > 0) {
         this.store.setCurrentMarkdown(this.store.getMarkdownList()[0]);
       } else {
