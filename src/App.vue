@@ -3,7 +3,7 @@
     <the-header
       :toggle="toggleSidebar"
       :showSidebar="showSidebar"
-      :updateMarkdown="updateMarkdown"
+      :editMarkdown="editMarkdown"
       :toggleModalDeleteDialog="toggleModalDeleteDialog"
     ></the-header>
     <the-sidebar
@@ -57,19 +57,18 @@ export default {
       };
       this.store.setCurrentMarkdown(newMarkdown);
     },
-    updateMarkdown(markdownId) {
-      const currentMarkdown = this.store.getCurrentMarkdown();
-      const localStorageItem = JSON.parse(
-        window.localStorage.getItem(markdownId)
-      );
-      if (localStorageItem != null) {
-        this.store.updateLocalStorageItem(currentMarkdown, localStorageItem);
-        this.store.removeMarkdownItem(currentMarkdown.id);
-        this.store.getMarkdownList().unshift(currentMarkdown);
-      } else {
-        this.store.addLocalStorageItem(currentMarkdown);
-        this.store.getMarkdownList().unshift(currentMarkdown);
-      }
+    /*
+    addMarkdown(currentMarkdown) {
+      this.store.addLocalStorageItem(currentMarkdown);
+      this.store.unshiftMarkdownItem();
+    },
+    updateMarkdown(currentMarkdown, localStorageItem) {
+      this.store.updateLocalStorageItem(currentMarkdown, localStorageItem);
+      this.store.unshiftMarkdownItem();
+    },
+    */
+    editMarkdown(markdownId) {
+      this.store.editMarkdown(markdownId);
     },
     deleteMarkdown() {
       const currentMarkdown = this.store.getCurrentMarkdown();

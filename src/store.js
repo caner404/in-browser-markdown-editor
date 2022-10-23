@@ -9,12 +9,15 @@ export const store = reactive({
   },
   markdownList: [],
   isDarkMode: false,
+  markdownLocalStorage: window.localStorage,
 
   init() {
-    if (window.localStorage.length > 0) {
-      for (let i = 0; i < window.localStorage.length; i++) {
-        let key = window.localStorage.key(i);
-        const localStorageItem = JSON.parse(window.localStorage.getItem(key));
+    if (this.markdownLocalStorage.length > 0) {
+      for (let i = 0; i < this.markdownLocalStorage.length; i++) {
+        let key = this.markdownLocalStorage.key(i);
+        const localStorageItem = JSON.parse(
+          this.markdownLocalStorage.getItem(key)
+        );
         this.markdownList.push(localStorageItem);
       }
     } else {
@@ -29,22 +32,31 @@ export const store = reactive({
     }
     this.currentMarkdown = this.markdownList[0];
   },
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+  },
   showDarkMode() {
     return this.isDarkMode;
   },
   getMarkdownList() {
     return this.markdownList;
   },
-  getDateFormat() {
-    const date = new Date();
-    const monthName = store.months[date.getMonth()];
-    return `${date.getDate()} ${monthName} ${date.getFullYear()}`;
+  setMarkdownList(markdownList) {
+    this.markdownList = markdownList;
+  },
+  setMarkdownLocalStorage(markdownLocalStorage) {
+    this.markdownLocalStorage = markdownLocalStorage;
   },
   getCurrentMarkdown() {
     return this.currentMarkdown;
   },
   setCurrentMarkdown(newMarkdown) {
     this.currentMarkdown = newMarkdown;
+  },
+  getDateFormat() {
+    const date = new Date();
+    const monthName = store.months[date.getMonth()];
+    return `${date.getDate()} ${monthName} ${date.getFullYear()}`;
   },
   getMarkdownItem(markdownId) {
     return this.markdownList.find((markdown) => markdown.id === markdownId);
@@ -53,12 +65,34 @@ export const store = reactive({
     const removeIndex = this.getMarkdownList().findIndex(
       (markdown) => markdown.id === markdownId
     );
-    this.getMarkdownList().splice(removeIndex, 1);
+    if (removeIndex != -1) {
+      this.getMarkdownList().splice(removeIndex, 1);
+    }
+  },
+  unshiftMarkdownItem() {
+    this.removeMarkdownItem(this.currentMarkdown.id);
+    this.getMarkdownList().unshift(this.currentMarkdown);
+  },
+  addMarkdown(currentMarkdown) {
+    this.addLocalStorageItem(currentMarkdown);
+    this.unshiftMarkdownItem();
+  },
+  updateMarkdown(currentMarkdown, localStorageItem) {
+    this.updateLocalStorageItem(currentMarkdown, localStorageItem);
+    this.unshiftMarkdownItem();
+  },
+  editMarkdown(markdownId) {
+    const currentMarkdown = this.getCurrentMarkdown();
+    const localStorageItem = JSON.parse(
+      this.markdownLocalStorage.getItem(markdownId)
+    );
+    if (localStorageItem == null) return this.addMarkdown(currentMarkdown);
+    this.updateMarkdown(currentMarkdown, localStorageItem);
   },
   addLocalStorageItem(currentMarkdown) {
     currentMarkdown.markdownDate = store.getDateFormat();
     currentMarkdown.id = new Date().toISOString();
-    window.localStorage.setItem(
+    this.markdownLocalStorage.setItem(
       currentMarkdown.id,
       JSON.stringify(currentMarkdown)
     );
@@ -67,7 +101,7 @@ export const store = reactive({
     localStorageItem.markdownTitle = currentMarkdown.markdownTitle;
     localStorageItem.markdownContent = currentMarkdown.markdownContent;
     localStorageItem.markdownDate = this.getDateFormat();
-    window.localStorage.setItem(
+    this.markdownLocalStorage.setItem(
       localStorageItem.id,
       JSON.stringify(localStorageItem)
     );
@@ -85,9 +119,6 @@ export const store = reactive({
     9: "October",
     10: "November",
     11: "December",
-  },
-  toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
   },
   dontIndent() {
     let markdownContentString = `# Welcome to Markdown

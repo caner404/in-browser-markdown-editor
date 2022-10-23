@@ -30,7 +30,7 @@
       </action-button>
 
       <action-button
-        @click="updateMarkdown(store.currentMarkdown.id)"
+        @click="editMarkdown(store.currentMarkdown.id)"
         mode="save"
         title="Save Changes"
       >
@@ -51,7 +51,7 @@ import ActionButton from "../ActionButton.vue";
 import { store } from "@/store.js";
 
 export default {
-  props: ["toggle", "showSidebar", "updateMarkdown", "toggleModalDeleteDialog"],
+  props: ["toggle", "showSidebar", "editMarkdown", "toggleModalDeleteDialog"],
   data() {
     return {
       store,
