@@ -57,33 +57,11 @@ export default {
       };
       this.store.setCurrentMarkdown(newMarkdown);
     },
-    /*
-    addMarkdown(currentMarkdown) {
-      this.store.addLocalStorageItem(currentMarkdown);
-      this.store.unshiftMarkdownItem();
-    },
-    updateMarkdown(currentMarkdown, localStorageItem) {
-      this.store.updateLocalStorageItem(currentMarkdown, localStorageItem);
-      this.store.unshiftMarkdownItem();
-    },
-    */
     editMarkdown(markdownId) {
       this.store.editMarkdown(markdownId);
     },
     deleteMarkdown() {
-      const currentMarkdown = this.store.getCurrentMarkdown();
-      window.localStorage.removeItem(currentMarkdown.id);
-      this.store.removeMarkdownItem(currentMarkdown.id);
-      if (this.store.getMarkdownList().length > 0) {
-        this.store.setCurrentMarkdown(this.store.getMarkdownList()[0]);
-      } else {
-        this.store.setCurrentMarkdown({
-          id: "",
-          markdownTitle: "",
-          markdownContent: "",
-          markdownDate: Date,
-        });
-      }
+      this.store.deleteMarkdown();
       this.toggleModalDeleteDialog();
     },
     toggleModalDeleteDialog() {

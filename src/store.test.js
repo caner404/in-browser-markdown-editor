@@ -117,3 +117,35 @@ test("editMarkdown should update an item in localstorage", () => {
     JSON.stringify(newUpdatedMarkdown)
   );
 });
+test("deleteMarkdown with Markdownlist not 0", () => {
+  let deleteCurrentMarkdown = store.getCurrentMarkdown();
+  window.localStorage.setItem(
+    deleteCurrentMarkdown.id,
+    JSON.stringify(deleteCurrentMarkdown)
+  );
+  store.deleteMarkdown();
+
+  expect(store.getMarkdownList()).not.toContain(deleteCurrentMarkdown);
+  expect(store.getCurrentMarkdown()).toBe(store.getMarkdownList()[0]);
+  expect(window.localStorage.getItem(deleteCurrentMarkdown)).toBeFalsy(null);
+});
+test("deleteMarkdown with Markdownlist then to be empty", () => {
+  let emptyMarkdown = {
+    id: "",
+    markdownTitle: "",
+    markdownContent: "",
+    markdownDate: Date,
+  };
+  let deleteCurrentMarkdown = store.getCurrentMarkdown();
+  const onlyOneMarkdownItem = [deleteCurrentMarkdown];
+  store.setMarkdownList(onlyOneMarkdownItem);
+  window.localStorage.setItem(
+    deleteCurrentMarkdown.id,
+    JSON.stringify(deleteCurrentMarkdown)
+  );
+  store.deleteMarkdown();
+
+  expect(store.getMarkdownList()).not.toContain(deleteCurrentMarkdown);
+  expect(store.getCurrentMarkdown()).toEqual(emptyMarkdown);
+  expect(window.localStorage.getItem(deleteCurrentMarkdown)).toBeFalsy(null);
+});

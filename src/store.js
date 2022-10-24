@@ -41,6 +41,9 @@ export const store = reactive({
   setMarkdownList(markdownList) {
     this.markdownList = markdownList;
   },
+  getCurrentMarkdown() {
+    return this.currentMarkdown;
+  },
   setCurrentMarkdown(newMarkdown) {
     this.currentMarkdown = newMarkdown;
   },
@@ -101,6 +104,21 @@ export const store = reactive({
       localStorageItem.id,
       JSON.stringify(localStorageItem)
     );
+  },
+  deleteMarkdown() {
+    const currentMarkdown = this.getCurrentMarkdown();
+    window.localStorage.removeItem(currentMarkdown.id);
+    this.removeMarkdownItem(currentMarkdown.id);
+    if (this.getMarkdownList().length > 0) {
+      this.setCurrentMarkdown(this.getMarkdownList()[0]);
+    } else {
+      this.setCurrentMarkdown({
+        id: "",
+        markdownTitle: "",
+        markdownContent: "",
+        markdownDate: Date,
+      });
+    }
   },
   months: {
     0: "January",
