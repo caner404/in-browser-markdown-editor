@@ -8,7 +8,8 @@ export default defineConfig({
   base: "/in-browser-markdown-editor/",
   plugins: [vue()],
   test: {
-    environment: "happy-dom",
+    environment: "jsdom",
+    globals: true,
   },
   resolve: {
     alias: {

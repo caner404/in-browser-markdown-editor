@@ -9,15 +9,12 @@ export const store = reactive({
   },
   markdownList: [],
   isDarkMode: false,
-  markdownLocalStorage: window.localStorage,
 
   init() {
-    if (this.markdownLocalStorage.length > 0) {
-      for (let i = 0; i < this.markdownLocalStorage.length; i++) {
-        let key = this.markdownLocalStorage.key(i);
-        const localStorageItem = JSON.parse(
-          this.markdownLocalStorage.getItem(key)
-        );
+    if (window.localStorage.length > 0) {
+      for (let i = 0; i < window.localStorage.length; i++) {
+        let key = window.localStorage.key(i);
+        const localStorageItem = JSON.parse(window.localStorage.getItem(key));
         this.markdownList.push(localStorageItem);
       }
     } else {
@@ -43,12 +40,6 @@ export const store = reactive({
   },
   setMarkdownList(markdownList) {
     this.markdownList = markdownList;
-  },
-  setMarkdownLocalStorage(markdownLocalStorage) {
-    this.markdownLocalStorage = markdownLocalStorage;
-  },
-  getCurrentMarkdown() {
-    return this.currentMarkdown;
   },
   setCurrentMarkdown(newMarkdown) {
     this.currentMarkdown = newMarkdown;
@@ -82,17 +73,22 @@ export const store = reactive({
     this.unshiftMarkdownItem();
   },
   editMarkdown(markdownId) {
-    const currentMarkdown = this.getCurrentMarkdown();
-    const localStorageItem = JSON.parse(
-      this.markdownLocalStorage.getItem(markdownId)
-    );
-    if (localStorageItem == null) return this.addMarkdown(currentMarkdown);
-    this.updateMarkdown(currentMarkdown, localStorageItem);
+    const currentMarkdown = this.getMarkdownItem(markdownId);
+    console.log(`CurrentMarkdown ${JSON.stringify(currentMarkdown)}`);
+    try {
+      const localStorageItem = JSON.parse(
+        window.localStorage.getItem(currentMarkdown.id)
+      );
+      if (localStorageItem == null) return this.addMarkdown(currentMarkdown);
+      this.updateMarkdown(currentMarkdown, localStorageItem);
+    } catch (error) {
+      console.log(`Error:${error.message}`);
+    }
   },
   addLocalStorageItem(currentMarkdown) {
     currentMarkdown.markdownDate = store.getDateFormat();
     currentMarkdown.id = new Date().toISOString();
-    this.markdownLocalStorage.setItem(
+    window.localStorage.setItem(
       currentMarkdown.id,
       JSON.stringify(currentMarkdown)
     );
@@ -101,7 +97,7 @@ export const store = reactive({
     localStorageItem.markdownTitle = currentMarkdown.markdownTitle;
     localStorageItem.markdownContent = currentMarkdown.markdownContent;
     localStorageItem.markdownDate = this.getDateFormat();
-    this.markdownLocalStorage.setItem(
+    window.localStorage.setItem(
       localStorageItem.id,
       JSON.stringify(localStorageItem)
     );
