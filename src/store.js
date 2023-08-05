@@ -1,29 +1,34 @@
 import { reactive } from "vue";
 
 export const store = reactive({
+  api: "http://localhost:8000/api/v1/markdowns",
   currentMarkdown: {
-    id: "",
-    markdownTitle: "",
-    markdownContent: "",
-    markdownDate: Date,
+    _id: "",
+    title: "",
+    text: "",
+    createdAt: new Date(),
   },
   markdownList: [],
   isDarkMode: false,
 
-  init() {
-    if (window.localStorage.length > 0) {
-      for (let i = 0; i < window.localStorage.length; i++) {
-        let key = window.localStorage.key(i);
-        const localStorageItem = JSON.parse(window.localStorage.getItem(key));
-        this.markdownList.push(localStorageItem);
+  async getMarkdowns() {
+    const result = await fetch(this.api);
+    const data = await result.json();
+    const markdowns = data.data.markdowns;
+
+    if (!markdowns.length <= 0) {
+      for (let i = 0; i < markdowns.length; i++) {
+        markdowns[i].createdAt = this.getDateFormat(markdowns[i].createdAt);
+        this.markdownList.push(markdowns[i]);
       }
+      console.log("Markdowns", this.markdownList);
     } else {
       //create welcome.md on first use
       const welcomeMarkdown = {
-        id: new Date().toISOString(),
-        markdownTitle: "welcome.md",
-        markdownDate: this.getDateFormat(),
-        markdownContent: this.dontIndent(),
+        _id: new Date().toISOString(),
+        title: "welcome.md",
+        createdAt: this.getDateFormat(),
+        text: this.dontIndent(),
       };
       this.markdownList.push(welcomeMarkdown);
     }
@@ -47,70 +52,66 @@ export const store = reactive({
   setCurrentMarkdown(newMarkdown) {
     this.currentMarkdown = newMarkdown;
   },
-  getDateFormat() {
-    const date = new Date();
+  getDateFormat(dateString) {
+    const date = new Date(dateString);
     const monthName = store.months[date.getMonth()];
     return `${date.getDate()} ${monthName} ${date.getFullYear()}`;
   },
   getMarkdownItem(markdownId) {
-    return this.markdownList.find((markdown) => markdown.id === markdownId);
+    return this.markdownList.find((markdown) => markdown._id === markdownId);
   },
   removeMarkdownItem(markdownId) {
-    const removeIndex = this.getMarkdownList().findIndex(
-      (markdown) => markdown.id === markdownId
-    );
+    const removeIndex = this.markdownList.findIndex((markdown) => markdown._id === markdownId);
     if (removeIndex != -1) {
-      this.getMarkdownList().splice(removeIndex, 1);
+      this.markdownList.splice(removeIndex, 1);
     }
   },
-  unshiftMarkdownItem() {
-    this.removeMarkdownItem(this.currentMarkdown.id);
-    this.getMarkdownList().unshift(this.currentMarkdown);
+  createMarkdown() {
+    const newMarkdown = {
+      _id: "",
+      title: "",
+      text: "",
+      createdAt: Date,
+    };
+    this.currentMarkdown = newMarkdown;
   },
-  addMarkdown(currentMarkdown) {
-    this.addLocalStorageItem(currentMarkdown);
-    this.unshiftMarkdownItem();
-  },
-  updateMarkdown(currentMarkdown, localStorageItem) {
-    this.updateLocalStorageItem(currentMarkdown, localStorageItem);
-    this.unshiftMarkdownItem();
-  },
-  editMarkdown(markdownId) {
-    const currentMarkdown = this.getMarkdownItem(markdownId);
-    console.log(`CurrentMarkdown ${JSON.stringify(currentMarkdown)}`);
+  async editMarkdown() {
+    const currentMarkdown = this.currentMarkdown;
     try {
-      const localStorageItem = JSON.parse(
-        window.localStorage.getItem(currentMarkdown.id)
-      );
-      if (localStorageItem == null) return this.addMarkdown(currentMarkdown);
-      this.updateMarkdown(currentMarkdown, localStorageItem);
+      let result;
+      if (currentMarkdown._id !== "") {
+        result = await fetch(`${this.api}/${currentMarkdown._id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title: currentMarkdown.title, text: currentMarkdown.text }),
+        });
+        const data = await result.json();
+        this.currentMarkdown = data.data.updateMarkdown;
+      } else {
+        result = await fetch(this.api, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title: currentMarkdown.title, text: currentMarkdown.text }),
+        });
+        const data = await result.json();
+        this.currentMarkdown = data.data.newMarkdown;
+        this.markdownList.push(this.currentMarkdown);
+      }
     } catch (error) {
       console.log(`Error:${error.message}`);
     }
   },
-  addLocalStorageItem(currentMarkdown) {
-    currentMarkdown.markdownDate = store.getDateFormat();
-    currentMarkdown.id = new Date().toISOString();
-    window.localStorage.setItem(
-      currentMarkdown.id,
-      JSON.stringify(currentMarkdown)
-    );
-  },
-  updateLocalStorageItem(currentMarkdown, localStorageItem) {
-    localStorageItem.markdownTitle = currentMarkdown.markdownTitle;
-    localStorageItem.markdownContent = currentMarkdown.markdownContent;
-    localStorageItem.markdownDate = this.getDateFormat();
-    window.localStorage.setItem(
-      localStorageItem.id,
-      JSON.stringify(localStorageItem)
-    );
-  },
-  deleteMarkdown() {
-    const currentMarkdown = this.getCurrentMarkdown();
-    window.localStorage.removeItem(currentMarkdown.id);
-    this.removeMarkdownItem(currentMarkdown.id);
-    if (this.getMarkdownList().length > 0) {
-      this.setCurrentMarkdown(this.getMarkdownList()[0]);
+  async deleteMarkdown() {
+    this.removeMarkdownItem(this.currentMarkdown._id);
+    const result = await fetch(`${this.api}/${this.currentMarkdown._id}`, {
+      method: "DELETE",
+    });
+    if (this.markdownList.length > 0) {
+      this.setCurrentMarkdown(this.markdownList[0]);
     } else {
       this.setCurrentMarkdown({
         id: "",
@@ -174,4 +175,4 @@ export const store = reactive({
     //return markdownContentString;
   },
 });
-store.init();
+store.getMarkdowns();

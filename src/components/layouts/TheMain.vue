@@ -1,10 +1,6 @@
 <template>
   <main :class="{ 'sidebar-active': showSidebar }">
-    <Editor
-      :toggleView="toggleView"
-      :updateMethod="update"
-      @toggle-editor="(isEditor) => (toggleView = isEditor)"
-    />
+    <Editor :toggleView="toggleView" :updateMethod="update" @toggle-editor="(isEditor) => (toggleView = isEditor)" />
     <Preview
       :outputMethod="output"
       :switchToPreview="!toggleView"
@@ -34,12 +30,12 @@ export default {
   },
   computed: {
     output() {
-      return marked(store.currentMarkdown.markdownContent);
+      return marked(store.currentMarkdown.text);
     },
   },
   methods: {
     update: debounce(function (e) {
-      store.currentMarkdown.markdownContent = e.target.value;
+      store.currentMarkdown.text = e.target.value;
     }, 100),
   },
 };

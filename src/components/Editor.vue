@@ -2,23 +2,12 @@
   <div class="editor" :class="{ 'editor-active': toggleView }">
     <div class="editor-header">
       <h2 class="editor-heading">Markdown</h2>
-      <button
-        class="editor-preview-toggle"
-        @click="$emit('toggleEditor', false)"
-      >
-        <img
-          src="@/assets/icon-show-preview.svg"
-          alt="Icon Preview Button Show"
-        />
+      <button class="editor-preview-toggle" @click="$emit('toggleEditor', false)">
+        <img src="@/assets/icon-show-preview.svg" alt="Icon Preview Button Show" />
       </button>
     </div>
 
-    <textarea
-      :value="store.currentMarkdown.markdownContent"
-      @input="updateMethod"
-      class="editor-content"
-      spellcheck="false"
-    >
+    <textarea :value="store.currentMarkdown.text" @input="updateMethod" class="editor-content" spellcheck="false">
     </textarea>
   </div>
 </template>

@@ -1,18 +1,9 @@
 <template>
   <div class="document">
-    <img
-      class="document_icon"
-      src="../assets/icon-document.svg"
-      alt="document file icon"
-    />
+    <img class="document_icon" src="../assets/icon-document.svg" alt="document file icon" />
     <div class="document__content">
       <label class="document__name" for="document_input">Document Name</label>
-      <input
-        id="document_input"
-        class="document__input"
-        type="text"
-        v-model="store.currentMarkdown.markdownTitle"
-      />
+      <input id="document_input" class="document__input" type="text" v-model="store.currentMarkdown.title" />
     </div>
   </div>
 </template>

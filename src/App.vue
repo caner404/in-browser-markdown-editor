@@ -6,10 +6,7 @@
       :editMarkdown="editMarkdown"
       :toggleModalDeleteDialog="toggleModalDeleteDialog"
     ></the-header>
-    <the-sidebar
-      :createMarkdown="createMarkdown"
-      :showSidebar="showSidebar"
-    ></the-sidebar>
+    <the-sidebar :createMarkdown="createMarkdown" :showSidebar="showSidebar"></the-sidebar>
     <the-main :showSidebar="showSidebar"></the-main>
     <delete-modal
       v-show="isDeleteModalOpen"
@@ -49,13 +46,7 @@ export default {
       this.showSidebar = !this.showSidebar;
     },
     createMarkdown() {
-      const newMarkdown = {
-        id: "",
-        markdownTitle: "",
-        markdownContent: "",
-        markdownDate: "",
-      };
-      this.store.setCurrentMarkdown(newMarkdown);
+      this.store.createMarkdown();
     },
     editMarkdown(markdownId) {
       this.store.editMarkdown(markdownId);

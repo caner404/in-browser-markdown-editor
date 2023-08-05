@@ -2,10 +2,10 @@
   <ul>
     <document-list-item
       v-for="markdown in store.getMarkdownList()"
-      :id="markdown.id"
-      :markdownTitle="markdown.markdownTitle"
-      :markdownDate="markdown.markdownDate"
-      @click="switchCurrentMarkdown(markdown.id)"
+      :id="markdown._id"
+      :markdownTitle="markdown.title"
+      :markdownDate="markdown.createdAt"
+      @click="switchCurrentMarkdown(markdown._id)"
     ></document-list-item>
   </ul>
 </template>
