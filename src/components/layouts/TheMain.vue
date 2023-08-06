@@ -8,14 +8,15 @@
     />
   </main>
 </template>
-<script>
+<script lang="ts">
 import { marked } from "marked";
 import { debounce } from "lodash-es";
-import { store } from "@/store.js";
+import { store } from "../../store";
 import Preview from "../Preview.vue";
 import Editor from "../Editor.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   components: {
     Preview,
     Editor,
@@ -34,11 +35,11 @@ export default {
     },
   },
   methods: {
-    update: debounce(function (e) {
+    update: debounce(function (e: any) {
       store.currentMarkdown.text = e.target.value;
     }, 100),
   },
-};
+});
 </script>
 <style>
 main {

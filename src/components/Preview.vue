@@ -1,47 +1,30 @@
 <template>
-  <div
-    class="preview"
-    :class="{ 'preview-active': isPreview || switchToPreview }"
-  >
+  <div class="preview" :class="{ 'preview-active': isPreview || switchToPreview }">
     <div class="preview-header">
       <h2 class="preview-heading">Preview</h2>
-      <button
-        v-if="switchToPreview"
-        class="preview-icon"
-        @click="$emit('toggleEditor', true)"
-      >
+      <button v-if="switchToPreview" class="preview-icon" @click="$emit('toggleEditor', true)">
         <img src="../assets/icon-hide-preview.svg" alt="Test2" />
       </button>
       <button v-else class="preview-icon" @click="isPreview = !isPreview">
-        <img
-          v-if="!isPreview"
-          src="../assets/icon-show-preview.svg"
-          alt="Icon Preview Button Show"
-        />
-        <img
-          v-else-if="isPreview"
-          src="../assets/icon-hide-preview.svg"
-          alt="Icon Preview Button Hide"
-        />
+        <img v-if="!isPreview" src="../assets/icon-show-preview.svg" alt="Icon Preview Button Show" />
+        <img v-else-if="isPreview" src="../assets/icon-hide-preview.svg" alt="Icon Preview Button Hide" />
       </button>
     </div>
 
-    <div
-      class="preview-content"
-      v-html="outputMethod"
-      :class="{ 'preview-content-active': isPreview }"
-    ></div>
+    <div class="preview-content" v-html="outputMethod" :class="{ 'preview-content-active': isPreview }"></div>
   </div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   props: ["outputMethod", "switchToPreview"],
   data() {
     return {
       isPreview: false,
     };
   },
-};
+});
 </script>
 <style>
 .preview {

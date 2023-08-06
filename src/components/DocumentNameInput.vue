@@ -7,15 +7,16 @@
     </div>
   </div>
 </template>
-<script>
-import { store } from "@/store.js";
-export default {
+<script lang="ts">
+import { store } from "../store";
+import { defineComponent } from "vue";
+export default defineComponent({
   data() {
     return {
       store,
     };
   },
-};
+});
 </script>
 <style scoped>
 .document {

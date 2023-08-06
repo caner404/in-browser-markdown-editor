@@ -1,25 +1,19 @@
 <template>
   <button @click="isButtonClicked = !isButtonClicked">
-    <img
-      v-if="!isButtonClicked"
-      src="../assets/icon-menu.svg"
-      alt="Menu Button"
-    />
-    <img
-      v-else="isButtonClicked"
-      src="../assets/icon-close.svg"
-      alt="Menu Button Clicked"
-    />
+    <img v-if="!isButtonClicked" src="../assets/icon-menu.svg" alt="Menu Button" />
+    <img v-else="isButtonClicked" src="../assets/icon-close.svg" alt="Menu Button Clicked" />
   </button>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   data() {
     return {
       isButtonClicked: false,
     };
   },
-};
+});
 </script>
 <style scoped>
 button {

@@ -3,7 +3,7 @@
     <div class="editor-header">
       <h2 class="editor-heading">Markdown</h2>
       <button class="editor-preview-toggle" @click="$emit('toggleEditor', false)">
-        <img src="@/assets/icon-show-preview.svg" alt="Icon Preview Button Show" />
+        <img src="../../assets/icon-show-preview.svg" alt="Icon Preview Button Show" />
       </button>
     </div>
 
@@ -11,16 +11,17 @@
     </textarea>
   </div>
 </template>
-<script>
-import { store } from "@/store.js";
-export default {
+<script lang="ts">
+import { store } from "../store";
+import { defineComponent } from "vue";
+export default defineComponent({
   props: ["toggleView", "updateMethod"],
   data() {
     return {
       store,
     };
   },
-};
+});
 </script>
 <style scoped>
 .editor-heading {

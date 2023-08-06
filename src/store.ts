@@ -1,38 +1,43 @@
 import { reactive } from "vue";
+import { DefaultApi, MarkdownCreate, MarkdownResponse, MarkdownResult } from "./generated/api";
 
 export const store = reactive({
-  api: "http://localhost:8000/api/v1/markdowns",
+  host: "http://localhost:8000",
   currentMarkdown: {
-    _id: "",
+    id: "",
     title: "",
     text: "",
     createdAt: new Date(),
-  },
-  markdownList: [],
+  } as MarkdownResponse,
+  markdownList: [] as MarkdownResponse[],
   isDarkMode: false,
 
   async getMarkdowns() {
+    /*
     const result = await fetch(this.api);
     const data = await result.json();
     const markdowns = data.data.markdowns;
 
-    if (!markdowns.length <= 0) {
+    */
+    const response = await new DefaultApi(null!, this.host).apiV1MarkdownsGet();
+    const markdowns: MarkdownResponse[] = response.data?.markdowns!;
+    if (markdowns.length) {
       for (let i = 0; i < markdowns.length; i++) {
-        markdowns[i].createdAt = this.getDateFormat(markdowns[i].createdAt);
+        //markdowns[i].createdAt = new Date(this.getDateFormat(markdowns[i].createdAt));
         this.markdownList.push(markdowns[i]);
       }
-      console.log("Markdowns", this.markdownList);
     } else {
       //create welcome.md on first use
       const welcomeMarkdown = {
         _id: new Date().toISOString(),
         title: "welcome.md",
-        createdAt: this.getDateFormat(),
+        //createdAt: new Date(this.getDateFormat()),
         text: this.dontIndent(),
       };
       this.markdownList.push(welcomeMarkdown);
     }
     this.currentMarkdown = this.markdownList[0];
+    console.log(this.markdownList);
   },
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
@@ -43,81 +48,70 @@ export const store = reactive({
   getMarkdownList() {
     return this.markdownList;
   },
-  setMarkdownList(markdownList) {
+  setMarkdownList(markdownList: MarkdownResponse[]) {
     this.markdownList = markdownList;
   },
   getCurrentMarkdown() {
     return this.currentMarkdown;
   },
-  setCurrentMarkdown(newMarkdown) {
+  setCurrentMarkdown(newMarkdown: MarkdownResponse) {
     this.currentMarkdown = newMarkdown;
   },
-  getDateFormat(dateString) {
-    const date = new Date(dateString);
-    const monthName = store.months[date.getMonth()];
-    return `${date.getDate()} ${monthName} ${date.getFullYear()}`;
+  getDateFormat(dateString?: string) {
+    if (dateString) {
+      const date = new Date(dateString);
+      const monthNumber = date.getMonth();
+      const monthName = Object.values(store.months)[monthNumber];
+      return `${date.getDate()} ${monthName} ${date.getFullYear()}`;
+    }
   },
-  getMarkdownItem(markdownId) {
-    return this.markdownList.find((markdown) => markdown._id === markdownId);
+  getMarkdownItem(markdownId: string) {
+    return this.markdownList.find((markdown) => markdown.id === markdownId);
   },
-  removeMarkdownItem(markdownId) {
-    const removeIndex = this.markdownList.findIndex((markdown) => markdown._id === markdownId);
+  removeMarkdownItem(markdownId: string) {
+    const removeIndex = this.markdownList.findIndex((markdown) => markdown.id === markdownId);
     if (removeIndex != -1) {
       this.markdownList.splice(removeIndex, 1);
     }
   },
   createMarkdown() {
-    const newMarkdown = {
-      _id: "",
+    const newMarkdown: MarkdownResponse = {
+      id: "",
       title: "",
       text: "",
-      createdAt: Date,
+      createdAt: null!,
     };
     this.currentMarkdown = newMarkdown;
   },
   async editMarkdown() {
-    const currentMarkdown = this.currentMarkdown;
     try {
-      let result;
-      if (currentMarkdown._id !== "") {
-        result = await fetch(`${this.api}/${currentMarkdown._id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ title: currentMarkdown.title, text: currentMarkdown.text }),
+      if (this.currentMarkdown.id === "") {
+        const newMarkdown = await new DefaultApi(null!, this.host).apiV1MarkdownsPost({
+          title: this.currentMarkdown.title,
+          text: this.currentMarkdown.text,
         });
-        const data = await result.json();
-        this.currentMarkdown = data.data.updateMarkdown;
+        this.currentMarkdown = newMarkdown.data!;
       } else {
-        result = await fetch(this.api, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ title: currentMarkdown.title, text: currentMarkdown.text }),
-        });
-        const data = await result.json();
-        this.currentMarkdown = data.data.newMarkdown;
-        this.markdownList.push(this.currentMarkdown);
+        const response: MarkdownResult = await new DefaultApi(null!, this.host).apiV1MarkdownsIdPatch(
+          this.currentMarkdown.id!,
+          this.currentMarkdown
+        );
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(`Error:${error.message}`);
     }
   },
   async deleteMarkdown() {
-    this.removeMarkdownItem(this.currentMarkdown._id);
-    const result = await fetch(`${this.api}/${this.currentMarkdown._id}`, {
-      method: "DELETE",
-    });
+    this.removeMarkdownItem(this.currentMarkdown.id!);
+    await new DefaultApi(null!, this.host).apiV1MarkdownsIdDelete(this.currentMarkdown.id!);
     if (this.markdownList.length > 0) {
       this.setCurrentMarkdown(this.markdownList[0]);
     } else {
       this.setCurrentMarkdown({
         id: "",
-        markdownTitle: "",
-        markdownContent: "",
-        markdownDate: Date,
+        title: "",
+        text: "",
+        createdAt: null!,
       });
     }
   },

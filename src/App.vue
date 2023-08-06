@@ -15,14 +15,15 @@
     ></delete-modal>
   </div>
 </template>
-<script>
-import TheHeader from "@/components/layouts/TheHeader.vue";
-import TheMain from "@/components/layouts/TheMain.vue";
-import TheSidebar from "@/components/layouts/TheSidebar.vue";
-import DeleteModal from "@/components/DeleteModal.vue";
-import { store } from "@/store.js";
+<script lang="ts">
+import TheHeader from "../src/components/layouts/TheHeader.vue";
+import TheMain from "../src/components/layouts/TheMain.vue";
+import TheSidebar from "../src/components/layouts/TheSidebar.vue";
+import DeleteModal from "../src/components/DeleteModal.vue";
+import { store } from "./store";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   components: {
     TheHeader,
     TheMain,
@@ -48,8 +49,8 @@ export default {
     createMarkdown() {
       this.store.createMarkdown();
     },
-    editMarkdown(markdownId) {
-      this.store.editMarkdown(markdownId);
+    editMarkdown() {
+      this.store.editMarkdown();
     },
     deleteMarkdown() {
       this.store.deleteMarkdown();
@@ -59,7 +60,7 @@ export default {
       this.isDeleteModalOpen = !this.isDeleteModalOpen;
     },
   },
-};
+});
 </script>
 <style>
 #container {

@@ -2,36 +2,29 @@
   <aside>
     <transition name="slide">
       <div class="sidebar" v-if="showSidebar">
-        <img
-          class="markdown_logo_sidebar"
-          src="../../assets/logo.svg"
-          alt="Markdown logo"
-        />
+        <img class="markdown_logo_sidebar" src="../../assets/logo.svg" alt="Markdown logo" />
         <h2>My Documents</h2>
-        <action-button
-          @click="createMarkdown"
-          mode="create"
-          title="+ New Document"
-        />
+        <action-button @click="createMarkdown" mode="create" title="+ New Document" />
         <DocumentList />
         <DarkModeToggle />
       </div>
     </transition>
   </aside>
 </template>
-<script>
-import DocumentList from "@/components/DocumentList.vue";
-import ActionButton from "@/components/ActionButton.vue";
-import DarkModeToggle from "@/components/DarkModeToggle.vue";
+<script lang="ts">
+import DocumentList from "../DocumentList.vue";
+import ActionButton from "../ActionButton.vue";
+import DarkModeToggle from "../DarkModeToggle.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   props: ["showSidebar", "createMarkdown"],
   components: {
     DocumentList,
     ActionButton,
     DarkModeToggle,
   },
-};
+});
 </script>
 <style scoped>
 .slide-enter-active,

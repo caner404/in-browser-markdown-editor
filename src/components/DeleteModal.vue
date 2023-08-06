@@ -1,33 +1,22 @@
 <template>
   <div class="modal-container" data-test="modal-container">
     <div class="modal" data-test="modal">
-      <h3 class="modal-heading" data-test="modal-heading">
-        Delete this document?
-      </h3>
+      <h3 class="modal-heading" data-test="modal-heading">Delete this document?</h3>
       <p class="modal-description" data-test="modal-description">
-        Are you sure you want to delete the '{{
-          this.store.currentMarkdown.markdownTitle
-        }}'' document and its contents? This action cannot be reversed
+        Are you sure you want to delete the '{{ store.currentMarkdown.title }}'' document and its contents? This action
+        cannot be reversed
       </p>
-      <action-button
-        @click="removeMarkdown"
-        mode="confirm"
-        title="Confirm & Delete"
-        data-test="modal-button"
-      >
+      <action-button @click="removeMarkdown" mode="confirm" title="Confirm & Delete" data-test="modal-button">
       </action-button>
     </div>
-    <div
-      class="overlay"
-      @click="toggleModalDeleteDialog"
-      data-test="modal-overlay"
-    ></div>
+    <div class="overlay" @click="toggleModalDeleteDialog" data-test="modal-overlay"></div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import ActionButton from "./ActionButton.vue";
-import { store } from "@/store.js";
-export default {
+import { store } from "../store";
+export default defineComponent({
   props: ["removeMarkdown", "toggleModalDeleteDialog"],
   data() {
     return {
@@ -37,7 +26,7 @@ export default {
   components: {
     ActionButton,
   },
-};
+});
 </script>
 <style scoped>
 .modal-container {
