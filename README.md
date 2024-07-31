@@ -59,6 +59,8 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built with
+
+- ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 - ![Vue.js](https://img.shields.io/badge/vuejs-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D)
 - [![Vite](https://img.shields.io/badge/vite-%23646CFF?style=for-the-badge&logo=vite&logoColor=yellow)](https://vitejs.dev/)
 
