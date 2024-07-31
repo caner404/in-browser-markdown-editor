@@ -133,4 +133,4 @@ This app was developed as part of the [Frontendmentor](https://www.frontendmento
 [license-shield]: https://img.shields.io/github/license/caner404/in-browser-markdown-editor.svg?&style=for-the-badge
 [license-url]: https://github.com/caner404/in-browser-markdown-editor/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/caner-iskenderoglu-6b8a8a304
+[linkedin-url]: https://linkedin.com/in/caner-iskenderoglu
