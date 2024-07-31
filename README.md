@@ -1,73 +1,134 @@
-# Frontend Mentor - In-browser markdown editor solution
 
-This is a solution to the [In-browser markdown editor challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/inbrowser-markdown-editor-r16TrrQX9). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+<div align='center'>
+  
+  [![Contributors][contributors-shield]][contributors-url]
+  [![Forks][forks-shield]][forks-url]
+  [![Stargazers][stars-shield]][stars-url]
+  [![Issues][issues-shield]][issues-url]
+  [![MIT License][license-shield]][license-url]
+  [![LinkedIn][linkedin-shield]][linkedin-url]
+  
+</div>
 
-## Table of contents
 
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
+<div align="center">
+  
+<h1 align="center">In Browser markdown editor</h1>
 
-## Overview
+  <p align="center">
+     A markdown editor which you can access via browser. 
+    <br />
+    <a href="https://github.com/caner404/in-browser-markdown-editor"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://caner404.github.io/in-browser-markdown-editor/" target='_blank'>View Demo</a>
+    ·
+    <a href="https://github.com/caner404/in-browser-markdown-editor/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    ·
+    <a href="https://github.com/caner404/in-browser-markdown-editor/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+  </p>
+</div>
 
-### The challenge
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-Users should be able to:
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-- Create, Read, Update, and Delete markdown documents
-- Name and save documents to be accessed as needed
-- Edit the markdown of a document and see the formatted preview of the content
-- View a full-page preview of the formatted content
-- View the optimal layout for the app depending on their device's screen size
-- See hover states for all interactive elements on the page
-- **Bonus**: If you're building a purely front-end project, use localStorage to save the current state in the browser that persists when the browser is refreshed
-- **Bonus**: Build this project as a full-stack application
 
-### Screenshot
-
-![](./preview.jpg)
-
-### Links
-
-- Solution URL: [Link to repository](https://github.com/caner404/in-browser-markdown-editor)
-- Live Site URL: [Live URL with github pages](https://caner404.github.io/in-browser-markdown-editor/)
-
-## My process
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built with
+- ![Vue.js](https://img.shields.io/badge/vuejs-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D)
+- [![Vite](https://img.shields.io/badge/vite-%23646CFF?style=for-the-badge&logo=vite&logoColor=yellow)](https://vitejs.dev/)
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- [Vuejs](https://https://vuejs.org/) - JS library
-- [Vite](https://vitejs.dev/) - Next Generation Frontend Tooling
 
-### What I learned
+<!-- GETTING STARTED -->
+## Getting Started
 
-In this project I worked with a frontend framework (Vuejs) for the first time. I quickly realized what advantages a frontend framework can offer and would like to further expand my knowledge in this area in the future.
+### Prerequisites
 
-### Continued development
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
 
-There are definitely I would like to work on in the future
+### Installation
 
-- some QoL changes
-- add Typescript support
-- import/export functionality
-- Full-stack implementation
+- Clone this repo:
 
-## Author
+```sh
+git clone https://github.com/caner404/in-browser-markdown-editor.git
+```
 
+- Install dependencies:
+
+```sh
+npm install
+```
+
+- Build command:
+
+```sh
+npm run build
+```
+
+- Live server:
+
+```sh
+npm run dev
+```
+
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Contact
+
+- LinkedIn - [@caner404](https://www.linkedin.com/in/caner-iskenderoglu-6b8a8a304/)
 - Frontend Mentor - [@caner404](https://www.frontendmentor.io/profile/caner404)
+- Github: [@caner404](https://github.com/caner404)
+
+Feel free to contact me with any questions or feedback!
 
 ## Acknowledgments
 
-Thank you - [frontendmentor](https://www.frontendmentor.io/) for providing such an interesting project! This was really fun to work on.
+This app was developed as part of the [Frontendmentor](https://www.frontendmentor.io/challenges/inbrowser-markdown-editor-r16TrrQX9) challenge. 
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/caner404/in-browser-markdown-editor.svg?style=for-the-badge
+[contributors-url]: https://github.com/caner404/in-browser-markdown-editor/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/caner404/in-browser-markdown-editor.svg?style=for-the-badge
+[forks-url]: https://github.com/caner404/in-browser-markdown-editor/network/members
+[stars-shield]: https://img.shields.io/github/stars/caner404/in-browser-markdown-editor.svg?style=for-the-badge
+[stars-url]: https://github.com/caner404/in-browser-markdown-editor/stargazers
+[issues-shield]: https://img.shields.io/github/issues/caner404/in-browser-markdown-editor.svg?style=for-the-badge
+[issues-url]: https://github.com/caner404/in-browser-markdown-editor/issues
+[license-shield]: https://img.shields.io/github/license/caner404/in-browser-markdown-editor.svg?&style=for-the-badge
+[license-url]: https://github.com/caner404/in-browser-markdown-editor/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/caner-iskenderoglu-6b8a8a304
